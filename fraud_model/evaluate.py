@@ -1,7 +1,9 @@
 # import libraries
 import os
 import pathlib
+from mlflow import metrics
 import pandas as pd
+from sklearn import metrics
 from sklearn.metrics import (
     accuracy_score,
     precision_score,
@@ -9,10 +11,12 @@ from sklearn.metrics import (
     f1_score,
     confusion_matrix
 )
+from xgboost import tracker
 from fraud_model.data_manager import load_pipeline, create_train_test_data, load_test_data
 from fraud_model.preprocessing import preprocess_dataset
 from fraud_model.predict import predict
 from fraud_model import config
+from fraud_model.tracking import MLflowTracker
 
 
 
@@ -28,15 +32,8 @@ def cal_metrics(y_true, y_pred):
     return metrics_dict
 
 # evaluate the model
-def evaluate_model():
+def evaluate_model(pipeline, test_df):
     
-    # load test dataset
-    print("Loading test dataset...")
-    test_df = load_test_data()
-    
-    # load pipeline
-    print("Loading pipeline...")
-    pipeline = load_pipeline()
     
     # preprocess test dataset
     print("Preprocessing test dataset...")
@@ -53,8 +50,7 @@ def evaluate_model():
     # evaluate the model
     print("Evaluating model...")
     metrics  = cal_metrics(y_test, y_pred)
-    metrics = cal_metrics(y_test, y_pred)
-
+    
     print("\nModel Evaluation")
     print("-" * 30)
     print(f"Accuracy : {metrics['accuracy']:.4f}")
@@ -64,9 +60,8 @@ def evaluate_model():
 
     print("\nConfusion Matrix:")
     print(metrics["confusion_matrix"])
-
+ 
     return metrics
     
-if __name__ == "__main__":
-    evaluate_model()
+
     
