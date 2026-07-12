@@ -6,6 +6,7 @@ import pandas as pd
 import numpy as np
 from fraud_model import config
 from fraud_model import data_manager
+from sklearn.base import BaseEstimator, TransformerMixin
 
 # validate dataset columns
 def validate_dataset_columns(df, expected_columns):
@@ -60,7 +61,7 @@ def create_balance_change_features(df):
 def drop_unnecessary_features(df):
     """Drop unnecessary features from the dataset."""
     
-    df = df.drop(columns=config.DROP_FEATURES)
+    df = df.drop(columns=config.DROP_FEATURES, errors="ignore")
     return df
 
 # validate dataframe
@@ -86,4 +87,19 @@ def preprocess_dataset(df):
     return df
 
 
+# create an orchestration class for preprocessing
+class Fraudprocessor(BaseEstimator, TransformerMixin):
+    """A class for preprocessing the fraud dataset."""
+
+    def __init__(self):
+        pass
+
+    def fit(self, X, y=None):
+        return self
+
+    def transform(self, X):
+        """Transform the input dataframe by preprocessing it."""
+        X = X.copy()
+        X = preprocess_dataset(X)
+        return X
 

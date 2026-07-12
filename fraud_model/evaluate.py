@@ -34,11 +34,6 @@ def cal_metrics(y_true, y_pred):
 # evaluate the model
 def evaluate_model(pipeline, test_df):
     
-    
-    # preprocess test dataset
-    print("Preprocessing test dataset...")
-    test_df = preprocess_dataset(test_df)
-    
     # split the features and target variable
     X_test = test_df.drop(columns=[config.TARGET_FEATURE])
     y_test = test_df[config.TARGET_FEATURE]

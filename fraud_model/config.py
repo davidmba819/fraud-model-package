@@ -97,3 +97,6 @@ XGBOOST_PARAMS = {
 }
 
 THRESHOLD = 0.31
+
+MLFLOW_TRACKING_URI = "mysql+pymysql://emeka:Emmizzy119?@localhost:3306/mlflow_db"
+EXPERIMENT_NAME = "Fraud Detection Experiment"

@@ -16,17 +16,14 @@ def train_pipeline():
     # Load the training data
     train_df, test_df = create_train_test_data()
     
-    print("Preprocessing training data...")
-    # Preprocess the training data
-    train_df = preprocess_dataset(train_df)
-    
+    print('splitting features and target variable...')
     # split the features and target variable
     X_train = train_df.drop(columns=[config.TARGET_FEATURE])
     y_train = train_df[config.TARGET_FEATURE]
     
     # create an instance of MLflowTracker
-    
-    mlflow_tracker = MLflowTracker(experiment_name="Fraud Detection Experiment")
+    print("Setting up MLflow tracking...")
+    mlflow_tracker = MLflowTracker(tracking_uri=config.MLFLOW_TRACKING_URI, experiment_name=config.EXPERIMENT_NAME)
     mlflow_tracker.set_experiment()
     mlflow_tracker.start_run()
     
@@ -39,7 +36,8 @@ def train_pipeline():
 
     # train the model
     pipeline.fit(X_train, y_train)
-    
+   
+    print("Logging parameters to MLflow...") 
     # log parameters to MLflow
     mlflow_tracker.log_parameters(config.XGBOOST_PARAMS)
     
@@ -47,9 +45,11 @@ def train_pipeline():
     # save pipeline to disk
     save_pipeline(pipeline)
     
+    print("Evaluating model on test data...")
     # evaluate the model
     metrics = evaluate_model(pipeline, test_df)
     
+    print("Logging metrics to MLflow...")
     # log metrics to MLflow
     mlflow_tracker.log_metrics({
         "accuracy": metrics["accuracy"],
@@ -58,6 +58,11 @@ def train_pipeline():
         "f1_score": metrics["f1_score"]
     })
     
+    print("Logging model to MLflow...")
+    # log the trained model to MLflow
+    mlflow_tracker.log_model(pipeline)
+    
+    print("Ending MLflow run...")
     # end the MLflow run
     mlflow_tracker.end_run()
     

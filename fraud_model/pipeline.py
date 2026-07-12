@@ -5,6 +5,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from xgboost import XGBClassifier
 from fraud_model import config
+from fraud_model.preprocessing import Fraudprocessor
 
 
 # create preprocessing for transformation
@@ -25,8 +26,12 @@ def create_pipeline():
    
     model = XGBClassifier(**config.XGBOOST_PARAMS)
     
-    pipeline = Pipeline(steps=[('preprocessor', preprocessor), 
-                               ('model', model)])
+    pipeline = Pipeline(steps=[
+        ('fraud_preprocessor', Fraudprocessor()),
+        ('column_transformer', preprocessor), 
+        ('model', model)
+        ]
+                        )
     
     return pipeline
 

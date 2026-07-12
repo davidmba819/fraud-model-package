@@ -4,7 +4,6 @@ python_env: python_env.yaml
 
 entry points:
   train:
-    command: "python -m fraud_model.train_pipeline"
-  
-  predict:
-    command: "python -m fraud_model.predict"
+    command: "python -m fraud_model.train_pipeline.py"
+
+
