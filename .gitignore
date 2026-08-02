@@ -13,6 +13,8 @@ mlruns/
 
 # Dataset
 data/raw/
+data/processed/
+data/raw/
 
 # Jupyter
 .ipynb_checkpoints/
