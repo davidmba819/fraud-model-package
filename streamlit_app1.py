@@ -68,7 +68,7 @@ with predict_tab:
             }
 
             try:
-                response = requests.post("http://localhost:8000/predict", json=data)
+                response = requests.post("http://api:8000/predict", json=data)
                 response.raise_for_status()
                 result = response.json()
                 prediction = result["predictions"]
