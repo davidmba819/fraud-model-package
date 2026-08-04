@@ -1,6 +1,10 @@
 name: Fraud Detection CI
 
-on: push
+on:
+    push:
+        paths-ignore:
+          - 'README.md'
+          - 'docs/**'
 
 jobs:
     test:
