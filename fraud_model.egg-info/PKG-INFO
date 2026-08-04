@@ -1,0 +1,17 @@
+Metadata-Version: 2.4
+Name: fraud_model
+Version: 0.1.0
+Summary: A machine learning package for fraud detection.
+Author: Mba DAVID Emeka
+Requires-Python: >=3.11
+Requires-Dist: pandas<3,>=2.2
+Requires-Dist: numpy<3,>=2.0
+Requires-Dist: scikit-learn<2,>=1.7
+Requires-Dist: xgboost<4,>=3.0
+Requires-Dist: joblib<2,>=1.5
+Requires-Dist: fastapi<1,>=0.100
+Requires-Dist: uvicorn<1,>=0.23
+Dynamic: author
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary

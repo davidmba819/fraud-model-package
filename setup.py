@@ -4,12 +4,14 @@ setup(
     name="fraud_model",
     version="0.1.0",
     packages=find_packages(),
-    install_requires=[
-        'pandas==3.0.3',
-        'numpy==2.4.6',
-        'scikit-learn==1.9.0',
-        'xgboost==3.2.0',
-        'joblib==1.5.3'
+     install_requires=[
+        "pandas>=2.2,<3",
+        "numpy>=2.0,<3",
+        "scikit-learn>=1.7,<2",
+        "xgboost>=3.0,<4",
+        "joblib>=1.5,<2",
+        "fastapi>=0.100,<1",
+        "uvicorn>=0.23,<1",
     ],
     python_requires=">=3.11",
     zip_safe=False,

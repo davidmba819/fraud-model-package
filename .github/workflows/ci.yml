@@ -27,3 +27,15 @@ jobs:
             - name: Run Tests
               run: pytest tests/test_predict.py
 
+            - name: install build package
+              run: pip install build
+
+            - name: Build Package
+              run: python -m build
+
+            - name: upoload artifacts
+              uses: actions/upload-artifact@v3
+              with:
+                name: fraud_model_package
+                path: dist/
+                

@@ -1,0 +1,7 @@
+pandas<3,>=2.2
+numpy<3,>=2.0
+scikit-learn<2,>=1.7
+xgboost<4,>=3.0
+joblib<2,>=1.5
+fastapi<1,>=0.100
+uvicorn<1,>=0.23
