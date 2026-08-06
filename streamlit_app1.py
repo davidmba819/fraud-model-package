@@ -2,6 +2,9 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import requests
+import os
+
+API_URL = os.getenv("API_URL", "http://api:8000/predict")
 
 # ==========================================================================
 # Page Configuration
@@ -68,7 +71,7 @@ with predict_tab:
             }
 
             try:
-                response = requests.post("http://api:8000/predict", json=data)
+                response = requests.post(API_URL, json=data)
                 response.raise_for_status()
                 result = response.json()
                 prediction = result["predictions"]

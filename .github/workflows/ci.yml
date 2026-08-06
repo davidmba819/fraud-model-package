@@ -72,3 +72,23 @@ jobs:
 
             - name: Push Streamlit Image
               run: docker push davidmba819/fraud-streamlit:latest
+
+            - name: Login to Azure
+              uses: azure/login@v2
+              with:
+               creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+            - name: Deploy FastAPI to Azure Container Apps
+              run: |
+                az containerapp update \
+                  --name fraud-api \
+                  --resource-group fraud-model-rg \
+                  --image davidmba819/fraud-api:latest
+
+            - name: Deploy Streamlit to Azure Container Apps
+              run: |
+                az containerapp update \
+                  --name fraud-streamlit \
+                  --resource-group fraud-model-rg \
+                  --image davidmba819/fraud-streamlit:latest \
+                  --set-env-vars API_URL=https://fraud-api.kindstone-9dea82b9.southafricanorth.azurecontainerapps.io/predict
